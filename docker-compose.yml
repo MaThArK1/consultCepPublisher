@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: rabbitmq:3.9.13-management-alpine
+    image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     restart: always
     environment:
@@ -9,6 +9,16 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - rabbitmq_go_net
+
+  db:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=root
+      - POSTGRESQL_PASSWORD=root
     networks:
       - rabbitmq_go_net
 
